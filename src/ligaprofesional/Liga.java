@@ -82,9 +82,9 @@ public class Liga {
 					System.out.println("Introduce los gastos fijos del equipo\n");
 					line=main.nextLine();
 					try{
-						gastos_fijos=Integer.parseInt(line);
+						gastos=Integer.parseInt(line);
 					}catch(Exception e){
-						gastos_fijos=-1;
+						gastos=-1;
 					}
 						//COMPROBAR ERRORES
 				}

@@ -15,14 +15,18 @@ public class Equipo {
     private int importecaja;
     private int abonados;
     private static int count_equipos=0;
+    private int gastos_fijos;
+    private int gastos_variables;
     
     //private Jugador[] jugadores = new Jugador[22];
     
-    public Equipo(String nombre,int importecaja, int abonados){
+    public Equipo(String nombre,int importecaja, int abonados, int gastos_fijos, int gastos_variables){
     	this.idequipo=count_equipos++;
         this.nombreEquipo = nombre;
         this.importecaja = importecaja;
         this.abonados = abonados;
+        this.gastos_fijos = gastos_fijos;
+        this.gastos_variables = gastos_variables;
     }
     
     public void setNombreEquipo(String nombre){
@@ -61,7 +65,7 @@ public class Equipo {
     @Override 
     public String toString(){
         String a = "Equipo" + idequipo + "\n" + "Nombre Equipo:" + nombreEquipo + "\n" + "Importe de Caja:" + importecaja + 
-                    "\n" + "Numero de abonados:" + abonados;
+                    "\n" + "Numero de abonados:" + abonados + "\nGastos fijos anuales: " + gastos_fijos  + "\nGastos variables anuales: " + gastos_variables;
         
         return a;
     }

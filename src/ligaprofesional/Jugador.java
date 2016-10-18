@@ -34,6 +34,12 @@ public class Jugador {
 	public Equipo getEquipo() {
 		return equipo;
 	}
+        
+        public void cambiarDemarcacion(Demarcacion dem)
+        {
+         this.demarcacion=dem;   
+        }
+        
 	
 	@Override 
     public String toString(){

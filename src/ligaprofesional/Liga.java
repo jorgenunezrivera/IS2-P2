@@ -34,7 +34,7 @@ public class Liga {
 		Scanner main = new Scanner(System.in);
 		int in=-1;
 		while(!fin){
-			System.out.println("1.Registrar un nuevo equipo\n2.Registrar un nuevo jugador \n3.Registrar un traspaso de jugador \n4.Listar en pantalla los datos básicos de los equipos registrados\n5.Listar los jugadores de cada equipo\n6.Mostrar los traspasos realizados\n7.Salir del programa ");
+			System.out.println("1.Registrar un nuevo equipo\n2.Registrar un nuevo jugador \n3.Registrar un traspaso de jugador \n4.Listar en pantalla los datos básicos de los equipos registrados\n5.Listar los jugadores de cada equipo\n6.Mostrar los traspasos realizados\n7.Cambiar demarcacion\n8.Salir del programa  ");
 			line = main.nextLine();
 			try{
 			in=Integer.parseInt(line);
@@ -183,7 +183,26 @@ public class Liga {
 
 				System.out.println(listar_traspasos());
 				break;
+                                
 			case 7:
+                                while (jugador_a_cambiar==null){
+					System.out.println("Introduce el nombre del jugador cuya demarcacion quieres cambiar\n");
+					nombre_jugador=main.nextLine(); //COMPROBAR ERRORES????
+					jugador_a_cambiar=comprobar_jugador(nombre_jugador);
+				}				
+                                while(demarcacion==null){
+					System.out.println("Introduce la nueva demarcacion del jugador (1:Portero 2:Defensa 3:Medio 4:Delantero\n");
+					line=main.nextLine();
+					try{
+						n_demarcacion=Integer.parseInt(line); //COMPROBAR ERRORES
+						demarcacion=comprobar_demarcacion(n_demarcacion);
+					}catch(Exception e){
+						demarcacion=null;
+					}
+				}
+                                jugador_a_cambiar.cambiarDemarcacion(demarcacion);
+                                break;
+                        case 8:    
 				writer = null;
 				while(writer==null){
 					System.out.println("Introduce el nombre del fichero donde se guardaran los datos");

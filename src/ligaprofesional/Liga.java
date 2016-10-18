@@ -22,9 +22,8 @@ public class Liga {
 	int clausula = -1;
 	int numero_abonados = -1;
 	int n_demarcacion=-1;
-        int gastos_fijos=-1;
-        int gastos_variables=-1;
-	boolean ya_existe_equipo =true;
+        int gastos=-1;
+        boolean ya_existe_equipo =true;
 	boolean ya_existe_jugador = true;
 	private String filename;
 	PrintWriter writer = null;
@@ -78,7 +77,7 @@ public class Liga {
 					}
 						//COMPROBAR ERRORES
 				}	
-                                while(gastos_fijos<0)
+                                while(gastos<0)
 				{
 					System.out.println("Introduce los gastos fijos del equipo\n");
 					line=main.nextLine();
@@ -89,18 +88,7 @@ public class Liga {
 					}
 						//COMPROBAR ERRORES
 				}
-                                while(gastos_variables<0)
-				{
-					System.out.println("Introduce los gastos variables del equipo\n");
-					line=main.nextLine();
-					try{
-						gastos_variables=Integer.parseInt(line);
-					}catch(Exception e){
-						gastos_variables=-1;
-					}
-						//COMPROBAR ERRORES
-				}
-				registrar_equipo(nombre_equipo,importe_caja,numero_abonados,gastos_fijos,gastos_variables);
+                               	registrar_equipo(nombre_equipo,importe_caja,numero_abonados,gastos);
 				
 				break;
 				
@@ -221,9 +209,9 @@ public class Liga {
 
 	}
 	
-	void registrar_equipo(String nombre,int importecaja,int abonados,int gasto_fijo, int gasto_variable)
+	void registrar_equipo(String nombre,int importecaja,int abonados,int gasto)
 	{
-		lista_equipos.add(new Equipo(nombre,importecaja,abonados,gasto_fijo,gasto_variable));
+		lista_equipos.add(new Equipo(nombre,importecaja,abonados,gasto));
 			
 	}
 	

@@ -47,6 +47,11 @@ public class Jugador {
          this.demarcacion=dem;   
         }
         
+        public Demarcacion getDemarcacion()
+        {
+         return this.demarcacion;   
+        }
+        
 	
 	@Override 
     public String toString(){

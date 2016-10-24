@@ -35,7 +35,7 @@ public class Liga {
 		Scanner main = new Scanner(System.in);
 		int in=-1;
 		while(!fin){
-			System.out.println("1.Registrar un nuevo equipo\n2.Registrar un nuevo jugador \n3.Registrar un traspaso de jugador \n4.Listar en pantalla los datos básicos de los equipos registrados\n5.Listar los jugadores de cada equipo\n6.Mostrar los traspasos realizados\n7.Cambiar demarcacion\n8.Comprobar_fair_play\n9.Salir del programa  ");
+			System.out.println("1.Registrar un nuevo equipo\n2.Registrar un nuevo jugador \n3.Registrar un traspaso de jugador \n4.Listar en pantalla los datos básicos de los equipos registrados\n5.Listar los jugadores de cada equipo\n6.Mostrar los traspasos realizados\n7.Cambiar demarcacion\n8.Comprobar_fair_play\n9.Comprpobar demarcaciones\n.Salir del programa  ");
 			line = main.nextLine();
 			try{
 			in=Integer.parseInt(line);
@@ -101,6 +101,7 @@ public class Liga {
 				demarcacion=null;
 				equipo_destino = null;
 				clausula=-1;
+				coste_anual=-1;
 				ya_existe_jugador=true;
 				while(ya_existe_jugador){
 					System.out.println("Introduce el nombre del jugador\n");
@@ -231,6 +232,21 @@ public class Liga {
 	            		System.out.println("No Cumple el fair play financiero\n");   					
             	   break;
                case 9: 
+            	   equipo_destino=null;
+           	    if(lista_equipos.isEmpty()){
+  						System.out.println("No se ha creado ningun equipo. Debes crear equipos primero");
+  						break;
+  					}
+	            	while(equipo_destino==null){
+	   					System.out.println("Introduce el nombre del equipo cuyas demarcaciones quieres comprobar\n");
+	   					if(main.hasNextLine()){
+	   						nombre_equipo=main.nextLine(); //COMPROBAR ERRORES
+	   						equipo_destino=comprobar_equipo(nombre_equipo);		
+	   					}
+	   				}
+	            	EvaluaDemarcacion(equipo_destino);
+	            	break;
+               case 10:
             	   
 				writer = null;
 				while(writer==null){
@@ -395,6 +411,39 @@ public class Liga {
     }
 	
 
-	
+	public void EvaluaDemarcacion(Equipo equipo){
+    	int porteros=0;int minporteros=2;
+    	int defensas=0;int mindefensas=4;
+    	int medios=0;int minmedios=4;
+    	int delanteros =0;int mindelanteros = 3;
+		for (Jugador jugador: lista_jugadores){
+			if(jugador.getEquipo().equals(equipo)){
+				Demarcacion d =jugador.getDemarcacion();
+				switch(d){
+				case PORTERO:
+					porteros++;
+					break;
+				case DEFENSA:
+					defensas++;
+					break;
+				case MEDIO:
+					medios++;
+					break;
+				case DELANTERO:
+					delanteros++;
+					break;
+				}	
+			}
+		}
+		System.out.println("El equipo "+ equipo.getNombreEquipo() + "tiene:");
+		System.out.println(porteros + " porteros");
+		System.out.println(defensas + " defensas");
+		System.out.println(medios + " medios");
+		System.out.println(delanteros + " delanteros");
+		if(porteros>minporteros && defensas>mindefensas && medios>minmedios && delanteros>mindelanteros)
+			System.out.println("El equipo si cumple los requisitos");	
+		else
+			System.out.println("El equipo no cumple los requisitos");
+    }
 	
 }

@@ -19,6 +19,7 @@ public class Liga {
 	private Jugador jugador_a_cambiar = null;
 	private Demarcacion demarcacion = null;
 	int importe_caja = -1;
+	int coste_anual=-1;
 	int clausula = -1;
 	int numero_abonados = -1;
 	int n_demarcacion=-1;
@@ -34,7 +35,7 @@ public class Liga {
 		Scanner main = new Scanner(System.in);
 		int in=-1;
 		while(!fin){
-			System.out.println("1.Registrar un nuevo equipo\n2.Registrar un nuevo jugador \n3.Registrar un traspaso de jugador \n4.Listar en pantalla los datos básicos de los equipos registrados\n5.Listar los jugadores de cada equipo\n6.Mostrar los traspasos realizados\n7.Cambiar demarcacion\n8.Salir del programa  ");
+			System.out.println("1.Registrar un nuevo equipo\n2.Registrar un nuevo jugador \n3.Registrar un traspaso de jugador \n4.Listar en pantalla los datos básicos de los equipos registrados\n5.Listar los jugadores de cada equipo\n6.Mostrar los traspasos realizados\n7.Cambiar demarcacion\n8.Comprobar_fair_play\n9.Salir del programa  ");
 			line = main.nextLine();
 			try{
 			in=Integer.parseInt(line);
@@ -135,7 +136,16 @@ public class Liga {
 						clausula=-1;
 					}
 				}
-				registrar_jugador(nombre_jugador,demarcacion,clausula,equipo_destino);
+				while(coste_anual<0){
+					System.out.println("Introduce el coste anual\n");
+					line=main.nextLine();
+					try{
+						coste_anual=Integer.parseInt(line); //COMPROBAR ERRORES	
+					}catch(Exception e){
+						coste_anual=-1;
+					}
+				}
+				registrar_jugador(nombre_jugador,demarcacion,clausula,equipo_destino,coste_anual);
 				break;
 				
 			case 3:
@@ -202,7 +212,26 @@ public class Liga {
 				}
                                 jugador_a_cambiar.cambiarDemarcacion(demarcacion);
                                 break;
-                        case 8:    
+               case 8: 
+            	    equipo_destino=null;
+            	    if(lista_equipos.isEmpty()){
+   						System.out.println("No se ha creado ningun equipo. Debes crear equipos primero");
+   						break;
+   					}
+	            	while(equipo_destino==null){
+	   					System.out.println("Introduce el nombre del equipo cuyo fair play quieres comprobar\n");
+	   					if(main.hasNextLine()){
+	   						nombre_equipo=main.nextLine(); //COMPROBAR ERRORES
+	   						equipo_destino=comprobar_equipo(nombre_equipo);		
+	   					}
+	   				}
+	            	if(EvaluaFairPlay(equipo_destino))
+	            		System.out.println("SI Cumple el fair play financiero\n");
+	            	else
+	            		System.out.println("No Cumple el fair play financiero\n");   					
+            	   break;
+               case 9: 
+            	   
 				writer = null;
 				while(writer==null){
 					System.out.println("Introduce el nombre del fichero donde se guardaran los datos");
@@ -234,8 +263,8 @@ public class Liga {
 			
 	}
 	
-	void registrar_jugador(String nombre,Demarcacion demarcacion,int clausula ,Equipo equipo_destino){
-		lista_jugadores.add(new Jugador(nombre,demarcacion,clausula,equipo_destino));		
+	void registrar_jugador(String nombre,Demarcacion demarcacion,int clausula ,Equipo equipo_destino,int coste_anual){
+		lista_jugadores.add(new Jugador(nombre,demarcacion,clausula,equipo_destino,coste_anual));		
 	}
 		
 	void traspasar(Date fecha,Jugador jugador, Equipo destino,int nueva_clausula){
@@ -350,6 +379,22 @@ public class Liga {
 			s=s +traspaso + "\n"; //ordenaaaaaar
 		return s;
 	}
+	
+	public boolean EvaluaFairPlay(Equipo equipo){
+    	int gasto=equipo.getGastos();
+		for (Jugador jugador: lista_jugadores){
+			if(jugador.getEquipo().equals(equipo)){
+				gasto+=jugador.getCosteAnual()*2;
+			}
+		}
+		if(equipo.getImporte()>gasto)
+			return true;
+		else
+			return false;
+    	
+    }
+	
+
 	
 	
 }

@@ -6,15 +6,17 @@ public class Jugador {
 	private Demarcacion demarcacion;
 	private int clausula;
 	private Equipo equipo;
+	private int coste_anual;
 	private static int count_jugadores=0;
 	//Constructor de la clase jugador, recibe todos los datos (nombre, demarcacion, clausula, equipo
 	
-	Jugador(String nombre,Demarcacion demarcacion,int clausula,Equipo equipo){
+	Jugador(String nombre,Demarcacion demarcacion,int clausula,Equipo equipo,int coste_anual){
 		this.idjugador=count_jugadores++;
 		this.nombre=nombre;
 		this.demarcacion=demarcacion;
 		this.clausula=clausula;
 		this.equipo=equipo;
+		this.coste_anual=coste_anual;
 	}
 	
 	public void transpasar(Equipo dest,int nueva_clausula){
@@ -33,6 +35,11 @@ public class Jugador {
 
 	public Equipo getEquipo() {
 		return equipo;
+	}
+	
+	public int getCosteAnual(){
+		return coste_anual;
+		
 	}
         
         public void cambiarDemarcacion(Demarcacion dem)

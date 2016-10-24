@@ -44,6 +44,10 @@ public class Equipo {
         return this.importecaja;
     }
     
+    public int getGastos(){
+    	return this.gastos;
+    }
+    
     public void setAbonados (int abonados){
         this.abonados = abonados;
     }
@@ -60,6 +64,8 @@ public class Equipo {
     public void RestaDinero(int importe){
         this.importecaja -= importe;    
     }
+    
+    
     
     @Override 
     public String toString(){
